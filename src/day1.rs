@@ -2,7 +2,7 @@ use std::fs;
 
 pub fn day1() {
     println!("Day 1 solution:");
-    let filename = "src/1input.txt";
+    let filename = "inputs/1.txt";
     println!("The input filename chosen is '{}'", filename);
 
     let contents =
