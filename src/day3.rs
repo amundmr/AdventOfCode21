@@ -5,6 +5,7 @@ pub fn day3() {
     //day3pt1();
     //day3pt2();
     day3pt2try2();
+    day3pt2try2co2();
 }
 fn day3pt1() {
     println!("Day 3 part 1 solution:");
@@ -148,8 +149,116 @@ fn day3pt2try2() {
     let lines: Vec<_> = contents.lines().collect();
     let len: usize = lines.len();
 
-    for line in lines.iter() {
-        let bitnum = usize::from_str_radix("10011101", 2).unwrap();
 
+    // Place all bits as integers in a vector
+    let mut bitnums: Vec<usize> = vec![0; len];
+
+    for (i, line) in lines.iter().enumerate() {
+        bitnums[i] = usize::from_str_radix(line, 2).unwrap();
+    }
+
+    let mut oxynums: Vec<usize> = bitnums.clone();
+    let mut new_oxynums: Vec<usize> = vec![];
+
+    // Loop through all the digits to do the work
+    for n in 0..12 {
+
+        let mut bitsum: usize = 0;
+        for num in &oxynums {
+
+            if get_bit_at(*num, n) {
+                bitsum += 1;
+            }
+        }
+        let mut chosen_num: usize;
+        if 2*bitsum < len {
+            // Most common num is 0, thus all nums with 0 belong to oxy
+            chosen_num = 0;
+        } else {
+            // Most commun num is 1, or 0 and 1 is even, then all nums with 1 belong to oxy
+            chosen_num = 1;
+        }
+
+        // Loop through the list and pick all nums with the chosen bit in the n.th position
+        for num in &oxynums {
+            if get_bit_at(*num, n) && chosen_num == 1 {
+                new_oxynums.push(*num);
+            } else if !get_bit_at(*num, n) && chosen_num == 0 {
+                new_oxynums.push(*num);
+            }
+        }
+        oxynums = new_oxynums.clone();
+        //println!("{:?}", new_oxynums);
+        if new_oxynums.len() == 1 {
+            println!("The number found for oxygen is: {}, and its bit-representation is: {:b}",new_oxynums[0], new_oxynums[0]);
+            break;
+        }
+        new_oxynums = vec![];
+    }
+}
+
+fn day3pt2try2co2() {
+    println!("Day 3 part 2 desperate attempt 2 solution:");
+
+    let filename = "inputs/3.txt";
+    let contents = fs::read_to_string(filename).expect("Something went wrong while reading file");
+
+    let lines: Vec<_> = contents.lines().collect();
+    let len: usize = lines.len();
+
+
+    // Place all bits as integers in a vector
+    let mut bitnums: Vec<usize> = vec![0; len];
+
+    for (i, line) in lines.iter().enumerate() {
+        bitnums[i] = usize::from_str_radix(line, 2).unwrap();
+    }
+
+    let mut co2nums: Vec<usize> = bitnums.clone();
+    let mut new_co2nums: Vec<usize> = vec![];
+
+    // Loop through all the digits to do the work
+    for n in 0..12 {
+
+        let mut bitsum: usize = 0;
+        for num in &co2nums {
+
+            if get_bit_at(*num, n) {
+                bitsum += 1;
+            }
+        }
+        let mut chosen_num: usize;
+        if 2*bitsum > len {
+            // Most common num is 1, thus all nums with 0 belong to co2
+            chosen_num = 0;
+        } else {
+            // Most commun num is 0, or 0 and 1 is even, then all nums with 1 belong to co2
+            chosen_num = 1;
+        }
+
+        // Loop through the list and pick all nums with the chosen bit in the n.th position
+        for num in &co2nums {
+            if get_bit_at(*num, n) && chosen_num == 1 {
+                new_co2nums.push(*num);
+            } else if !get_bit_at(*num, n) && chosen_num == 0 {
+                new_co2nums.push(*num);
+            }
+        }
+        co2nums = new_co2nums.clone();
+        //println!("{:?}", new_oxynums);
+        if new_co2nums.len() == 1 {
+            println!("The number found for CO2 is: {}, and its bit-representation is: {:b}",new_co2nums[0], new_co2nums[0]);
+            break;
+        }
+        new_co2nums = vec![];
+    }
+}
+
+// gets the bit at position `n`. Bits are numbered from 0 (least significant) to 31 (most significant).
+fn get_bit_at(input: usize, n: u8) -> bool {
+    if n < 32 {
+        input & (1 << n) != 0
+    } else {
+        false
     }
 }
