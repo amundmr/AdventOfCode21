@@ -3,7 +3,8 @@ use std::fs;
 
 pub fn day3() {
     //day3pt1();
-    day3pt2();
+    //day3pt2();
+    day3pt2try2();
 }
 fn day3pt1() {
     println!("Day 3 part 1 solution:");
@@ -136,4 +137,19 @@ fn day3pt2(){
     let life_support_rating: isize = o2_int * co2_int;
     println!("Life support rating found to be: {}", life_support_rating);
 
+}
+
+fn day3pt2try2() {
+    println!("Day 3 part 2 desperate attempt 2 solution:");
+
+    let filename = "inputs/3.txt";
+    let contents = fs::read_to_string(filename).expect("Something went wrong while reading file");
+
+    let lines: Vec<_> = contents.lines().collect();
+    let len: usize = lines.len();
+
+    for line in lines.iter() {
+        let bitnum = usize::from_str_radix("10011101", 2).unwrap();
+
+    }
 }
