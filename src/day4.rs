@@ -21,7 +21,7 @@ pub fn day4() {
 
     println!("The random numbers are: {:?}", random_numbers);
 
-    // Read in the matrices
+    // Step 1: Read in the matrices
     let mut matrices: Vec<Vec<Vec<usize>>> = vec![];
     //Format: [ [   [[],[],[]], 
     //              [[],[],[]], 
@@ -39,6 +39,19 @@ pub fn day4() {
     }
     //println!("{:?}", matrices);
     
-    
+    // Step 2: Find the winning board
+    for num in random_numbers {
+        for matrix in matrices {
+            for row in matrix {
+                for val in row {
+                    if num == val {
+                        val + 100; // Move value of element outside the range of 0-100 which all normal numbers are.
+                    }
+                }
+            }
+            // Now the matrix is marked with the new tested numbers so we can check if any row or column is totally marked.
+            
+        }
+    }
 
 }
