@@ -33,12 +33,12 @@ pub fn day5() {
     let filename: &str = "inputs/5.txt";
     let data: Vec<Vec<usize>> = read_data(filename);
     let filtered_data: Vec<Vec<usize>> = filter_horizontal_and_vertical(&data);
-    let filtered_diagonal: Vec<Vec<usize>> = filter_diagonal(&data);
+    let filtered_diagonal: Vec<Vec<usize>> = filter_diagonal(&data); // Part 2
     let mut intermediaries: Vec<Vec<(usize, usize)>> = find_intermediaries(&filtered_data);
-    let mut intermediaries_diag: Vec<Vec<(usize, usize)>> = find_intermeds_diag(&filtered_diagonal);
+    let mut intermediaries_diag: Vec<Vec<(usize, usize)>> = find_intermeds_diag(&filtered_diagonal); // Part 2
 
     // Move all diagonal lines into the same vector as the vertical/horizontal lines
-    intermediaries.append(&mut intermediaries_diag);
+    intermediaries.append(&mut intermediaries_diag); // Part 2
 
     // Spawn matrix to do all the line addition in
     let mut matrix: Vec<Vec<usize>> = vec![vec![0; 1000]; 1000];
@@ -64,7 +64,7 @@ pub fn day5() {
 
 }
 
-fn find_intermeds_diag(data: &Vec<Vec<usize>>) -> Vec<Vec<(usize, usize)>> {
+fn find_intermeds_diag(data: &Vec<Vec<usize>>) -> Vec<Vec<(usize, usize)>> { // Part 2
     let mut intermediaries: Vec<Vec<(usize, usize)>> = vec![vec![]];
 
     for line in data.iter() {
@@ -146,7 +146,7 @@ fn filter_horizontal_and_vertical(data: &Vec<Vec<usize>>) -> Vec<Vec<usize>> {
     return filtered;
 }
 
-fn filter_diagonal(data: &Vec<Vec<usize>>) -> Vec<Vec<usize>> {
+fn filter_diagonal(data: &Vec<Vec<usize>>) -> Vec<Vec<usize>> { // Part 2
     let mut filtered: Vec<Vec<usize>> = vec![];
 
     for line in data.iter() {
